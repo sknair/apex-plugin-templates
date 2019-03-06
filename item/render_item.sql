@@ -15,15 +15,14 @@ FUNCTION render_item(p_item                IN apex_plugin.t_page_item,
   l_element_item_id VARCHAR2(200);
   --
 BEGIN
-  -- printer friendly display
-  IF p_is_printer_friendly THEN
+  -- printer friendly or read only display
+  IF p_is_printer_friendly OR p_is_readonly THEN
     apex_plugin_util.print_display_only(p_item_name        => p_item.name,
                                         p_display_value    => p_value,
                                         p_show_line_breaks => FALSE,
                                         p_escape           => TRUE,
                                         p_attributes       => p_item.element_attributes);
-    -- read only display
-  ELSIF p_is_readonly THEN
+    
     apex_plugin_util.print_hidden_if_readonly(p_item_name           => p_item.name,
                                               p_value               => p_value,
                                               p_is_readonly         => p_is_readonly,
